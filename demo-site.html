@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Manager - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .status {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+        
+        .status-item:not(:last-child) {
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .status-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .status-value {
+            font-size: 14px;
+        }
+        
+        .connected {
+            color: #10b981;
+        }
+        
+        .disconnected {
+            color: #ef4444;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-facebook {
+            background: #1877f2;
+            color: white;
+        }
+        
+        .btn-facebook:hover {
+            background: #166fe5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
+        }
+        
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            color: white;
+        }
+        
+        .btn-instagram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(188, 24, 136, 0.4);
+        }
+        
+        .post-form {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .post-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox-label input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .btn-publish {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-publish:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-publish:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .success-message,
+        .error-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        
+        .success-message.show,
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Social Media Manager</h1>
+        <p class="subtitle">Connect your accounts and publish content easily</p>
+        
+        <!-- Status Section -->
+        <div class="status">
+            <div class="status-item">
+                <span class="status-label">📘 Facebook</span>
+                <span class="status-value" id="fb-status">
+                    <span class="disconnected">❌ Not Connected</span>
+                </span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">📷 Instagram</span>
+                <span class="status-value" id="ig-status">
+                    <span class="disconnected">❌ Not Connected</span>
+                </span>
+            </div>
+        </div>
+        
+        <!-- Connect Buttons -->
+        <div id="connect-section">
+            <button class="btn btn-facebook" onclick="connectFacebook()">
+                📘 Connect Facebook
+            </button>
+            <button class="btn btn-instagram" onclick="connectInstagram()">
+                📷 Connect Instagram
+            </button>
+        </div>
+        
+        <!-- Post Form -->
+        <div class="post-form" id="post-form">
+            <h2 style="margin-bottom: 20px; color: #333;">Create Post</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Post Text</label>
+                <textarea class="form-textarea" id="post-text" placeholder="Write your post content here..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Image URL</label>
+                <input type="text" class="form-input" id="image-url" placeholder="https://example.com/image.jpg">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Post to:</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="post-fb" checked>
+                        📘 Facebook
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="post-ig" checked>
+                        📷 Instagram
+                    </label>
+                </div>
+            </div>
+            
+            <button class="btn btn-publish" onclick="publishPost()">
+                🚀 Publish Post
+            </button>
+            
+            <div class="success-message" id="success-msg"></div>
+            <div class="error-message" id="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- Facebook SDK -->
+    <script>
+        // =========================
+        // AYARLAR - BURAYA KENDİ APP ID'Nİ YAZ
+        // =========================
+        const APP_ID = '2264962780684996';  // ← developers.facebook.com'dan al
+        const FACEBOOK_PAGE_ID = '853925867801149';  // ← Kendi Page ID'n
+        
+        let accessToken = null;
+        let pageAccessToken = null;
+        let instagramUserId = null;
+        let fbConnected = false;
+        let igConnected = false;
+
+        // Facebook SDK Initialize
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: APP_ID,
+                cookie: true,
+                xfbml: true,
+                version: 'v21.0'
+            });
+        };
+
+        // Load Facebook SDK
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // =========================
+        // FACEBOOK CONNECTION
+        // =========================
+        function connectFacebook() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    accessToken = response.authResponse.accessToken;
+                    fbConnected = true;
+                    updateStatus('fb', true);
+                    
+                    // Get Page Access Token
+                    getPageAccessToken();
+                } else {
+                    showError('Facebook connection cancelled');
+                }
+            }, {
+                scope: 'pages_show_list,pages_manage_posts,pages_read_engagement,instagram_basic,instagram_content_publish',
+                return_scopes: true
+            });
+        }
+
+        // =========================
+        // GET PAGE ACCESS TOKEN
+        // =========================
+        async function getPageAccessToken() {
+            try {
+                const response = await fetch(
+                    `https://graph.facebook.com/v21.0/me/accounts?access_token=${accessToken}`
+                );
+                const data = await response.json();
+                
+                if (data.data && data.data.length > 0) {
+                    pageAccessToken = data.data[0].access_token;
+                    console.log('✅ Page Access Token obtained');
+                    
+                    // Automatically try to connect Instagram
+                    connectInstagramAuto();
+                }
+            } catch (error) {
+                console.error('Error getting page token:', error);
+            }
+        }
+
+        // =========================
+        // INSTAGRAM CONNECTION
+        // =========================
+        function connectInstagram() {
+            if (!fbConnected) {
+                showError('Please connect Facebook first');
+                return;
+            }
+            connectInstagramAuto();
+        }
+
+        async function connectInstagramAuto() {
+            try {
+                const response = await fetch(
+                    `https://graph.facebook.com/v21.0/${FACEBOOK_PAGE_ID}?fields=instagram_business_account&access_token=${pageAccessToken}`
+                );
+                const data = await response.json();
+                
+                if (data.instagram_business_account) {
+                    instagramUserId = data.instagram_business_account.id;
+                    igConnected = true;
+                    updateStatus('ig', true);
+                    showPostForm();
+                } else {
+                    showError('No Instagram Business Account linked to this Page');
+                }
+            } catch (error) {
+                showError('Error connecting Instagram: ' + error.message);
+            }
+        }
+
+        // =========================
+        // PUBLISH POST
+        // =========================
+        async function publishPost() {
+            const text = document.getElementById('post-text').value;
+            const imageUrl = document.getElementById('image-url').value;
+            const postToFB = document.getElementById('post-fb').checked;
+            const postToIG = document.getElementById('post-ig').checked;
+            
+            if (!text) {
+                showError('Please enter post text');
+                return;
+            }
+            
+            if (!imageUrl) {
+                showError('Please enter image URL');
+                return;
+            }
+            
+            if (!postToFB && !postToIG) {
+                showError('Please select at least one platform');
+                return;
+            }
+            
+            let results = [];
+            
+            // Post to Facebook
+            if (postToFB && fbConnected) {
+                const fbResult = await postToFacebook(imageUrl, text);
+                if (fbResult) {
+                    results.push('✅ Posted to Facebook');
+                } else {
+                    results.push('❌ Facebook post failed');
+                }
+            }
+            
+            // Post to Instagram
+            if (postToIG && igConnected) {
+                const igResult = await postToInstagram(imageUrl, text);
+                if (igResult) {
+                    results.push('✅ Posted to Instagram');
+                } else {
+                    results.push('❌ Instagram post failed');
+                }
+            }
+            
+            showSuccess(results.join('<br>'));
+        }
+
+        // =========================
+        // POST TO FACEBOOK
+        // =========================
+        async function postToFacebook(imageUrl, text) {
+            try {
+                const response = await fetch(
+                    `https://graph.facebook.com/v21.0/${FACEBOOK_PAGE_ID}/photos`,
+                    {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            url: imageUrl,
+                            message: text,
+                            access_token: pageAccessToken
+                        })
+                    }
+                );
+                const data = await response.json();
+                return data.id ? true : false;
+            } catch (error) {
+                console.error('Facebook error:', error);
+                return false;
+            }
+        }
+
+        // =========================
+        // POST TO INSTAGRAM
+        // =========================
+        async function postToInstagram(imageUrl, text) {
+            try {
+                // Step 1: Create container
+                const containerResponse = await fetch(
+                    `https://graph.facebook.com/v21.0/${instagramUserId}/media`,
+                    {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            image_url: imageUrl,
+                            caption: text,
+                            access_token: pageAccessToken
+                        })
+                    }
+                );
+                const containerData = await containerResponse.json();
+                
+                if (!containerData.id) return false;
+                
+                // Step 2: Publish
+                const publishResponse = await fetch(
+                    `https://graph.facebook.com/v21.0/${instagramUserId}/media_publish`,
+                    {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            creation_id: containerData.id,
+                            access_token: pageAccessToken
+                        })
+                    }
+                );
+                const publishData = await publishResponse.json();
+                
+                return publishData.id ? true : false;
+            } catch (error) {
+                console.error('Instagram error:', error);
+                return false;
+            }
+        }
+
+        // =========================
+        // UI HELPERS
+        // =========================
+        function updateStatus(platform, connected) {
+            const statusEl = document.getElementById(`${platform}-status`);
+            if (connected) {
+                statusEl.innerHTML = '<span class="connected">✅ Connected</span>';
+            } else {
+                statusEl.innerHTML = '<span class="disconnected">❌ Not Connected</span>';
+            }
+        }
+
+        function showPostForm() {
+            if (fbConnected || igConnected) {
+                document.getElementById('post-form').classList.add('active');
+            }
+        }
+
+        function showSuccess(message) {
+            const el = document.getElementById('success-msg');
+            el.innerHTML = message;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 5000);
+        }
+
+        function showError(message) {
+            const el = document.getElementById('error-msg');
+            el.innerHTML = message;
+            el.classList.add('show');
+            setTimeout(() => el.classList.remove('show'), 5000);
+        }
+    </script>
+</body>
+</html>
