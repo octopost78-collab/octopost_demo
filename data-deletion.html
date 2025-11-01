@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Deletion Instructions - Social Media Manager</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+            background: #f9f9f9;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1877f2;
+            border-bottom: 3px solid #1877f2;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #444;
+            margin-top: 30px;
+        }
+        p {
+            margin: 15px 0;
+        }
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .method {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .important {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .contact {
+            background: #e7f3ff;
+            border-left: 4px solid #1877f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Deletion Instructions</h1>
+        
+        <p>
+            We respect your right to privacy and control over your personal data. 
+            This page explains how you can request deletion of your data from our service.
+        </p>
+        
+        <div class="important">
+            <strong>⚠️ Important:</strong> Deleting your data will permanently remove all your information 
+            from our systems and cannot be undone. You will need to reconnect your accounts if you wish 
+            to use the service again.
+        </div>
+        
+        <h2>Method 1: Revoke App Access (Immediate)</h2>
+        <div class="method">
+            <p>The fastest way to stop our access to your data:</p>
+            <ol>
+                <li>Go to <a href="https://www.facebook.com/settings?tab=applications" target="_blank">Facebook Settings → Apps and Websites</a></li>
+                <li>Find "Social Media Manager" in the list</li>
+                <li>Click "Remove"</li>
+                <li>Confirm the removal</li>
+            </ol>
+            <p><strong>Effect:</strong> Our access to your Facebook and Instagram accounts will be immediately revoked. 
+            Your data will be automatically deleted from our systems within 30 days.</p>
+        </div>
+        
+        <h2>Method 2: Email Data Deletion Request</h2>
+        <div class="method">
+            <p>Send an email to request complete data deletion:</p>
+            <ul>
+                <li><strong>To:</strong> privacy@socialmediamanager.com</li>
+                <li><strong>Subject:</strong> Data Deletion Request</li>
+                <li><strong>Include:</strong>
+                    <ul>
+                        <li>Your Facebook User ID (if known)</li>
+                        <li>Email address associated with your account</li>
+                        <li>Confirmation that you want all data deleted</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>Response Time:</strong> We will confirm receipt within 48 hours and complete deletion within 30 days.</p>
+        </div>
+        
+        <h2>Method 3: Automated Deletion Callback</h2>
+        <div class="method">
+            <p>For developers and automated systems:</p>
+            <p><strong>Endpoint:</strong> <code>POST https://octopost78-collab.github.io/octopost_demo/data-deletion</code></p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><code>signed_request</code> - Facebook signed request containing user ID</li>
+            </ul>
+            <p>This endpoint handles data deletion requests from Facebook's Data Deletion Callback.</p>
+        </div>
+        
+        <h2>What Data Will Be Deleted?</h2>
+        <p>When you request data deletion, we will permanently remove:</p>
+        <ul>
+            <li>Your Facebook and Instagram access tokens</li>
+            <li>All content you've published through our service</li>
+            <li>Your account settings and preferences</li>
+            <li>Any logs or analytics data associated with your account</li>
+            <li>All personally identifiable information</li>
+        </ul>
+        
+        <div class="important">
+            <strong>Note:</strong> Content already published to your Facebook Page or Instagram account 
+            will remain on those platforms. This process only deletes data stored in our systems. 
+            To remove content from Facebook or Instagram, you must do so directly on those platforms.
+        </div>
+        
+        <h2>Data Deletion Timeline</h2>
+        <p>Our data deletion process follows this timeline:</p>
+        <ol>
+            <li><strong>Day 0:</strong> You request data deletion</li>
+            <li><strong>Day 1-2:</strong> We confirm receipt of your request</li>
+            <li><strong>Day 3-7:</strong> Your data is marked for deletion and access is revoked</li>
+            <li><strong>Day 8-30:</strong> Complete deletion from all systems, including backups</li>
+            <li><strong>Day 30:</strong> We send confirmation that deletion is complete</li>
+        </ol>
+        
+        <h2>Verification of Deletion</h2>
+        <p>Upon completion of data deletion, we will:</p>
+        <ul>
+            <li>Send a confirmation email to your registered email address</li>
+            <li>Provide a deletion confirmation code for your records</li>
+            <li>Confirm that all access tokens have been invalidated</li>
+        </ul>
+        
+        <h2>Questions or Issues?</h2>
+        <p>If you have questions about the data deletion process or encounter any issues:</p>
+        
+        <div class="contact">
+            <h3>Contact Us</h3>
+            <ul>
+                <li><strong>Email:</strong> privacy@socialmediamanager.com</li>
+                <li><strong>Subject Line:</strong> Data Deletion Support</li>
+                <li><strong>Response Time:</strong> Within 48 hours</li>
+            </ul>
+            <p>
+                For general privacy questions, please see our 
+                <a href="privacy.html">Privacy Policy</a>.
+            </p>
+        </div>
+        
+        <h2>Your Rights</h2>
+        <p>Under data protection regulations (including GDPR), you have the right to:</p>
+        <ul>
+            <li>Request confirmation of what personal data we hold about you</li>
+            <li>Request a copy of your personal data</li>
+            <li>Request correction of inaccurate data</li>
+            <li>Request deletion of your data (as described above)</li>
+            <li>Object to processing of your data</li>
+            <li>Request restriction of processing</li>
+            <li>Request data portability</li>
+        </ul>
+        <p>To exercise any of these rights, please contact us using the information above.</p>
+    </div>
+</body>
+</html>
